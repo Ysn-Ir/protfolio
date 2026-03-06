@@ -1,3 +1,5 @@
+import resumePDF from "../assets/ysnCv.pdf";
+
 export default function Hero() {
     return (
         <section className="hero" id="top">
@@ -19,7 +21,7 @@ export default function Hero() {
                 </div>
                 <div className="hero-cta">
                     <a href="#projects" className="btn btn-primary">View Projects</a>
-                    <a href="https://github.com/Ysn-Ir/CV/blob/main/ysnCv.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">View Resume ↗</a>
+                    <a href={resumePDF} target="_blank" rel="noopener noreferrer" className="btn btn-outline">View Resume ↗</a>
                     <a href="https://github.com/Ysn-Ir" target="_blank" rel="noopener noreferrer" className="btn btn-outline">github.com/Ysn-Ir</a>
                     <a href="mailto:oualiy419@gmail.com" className="btn btn-outline">Get in Touch</a>
                 </div>

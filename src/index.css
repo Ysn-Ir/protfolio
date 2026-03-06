@@ -604,6 +604,17 @@ section {
   font-size: 18px;
 }
 
+.project-badge--svg {
+  color: var(--accent);
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.project-card:hover .project-badge--svg {
+  color: var(--accent2);
+  border-color: var(--accent2);
+}
+
+
 /* FEATURED PROJECT */
 .project-card.featured {
   grid-column: 1 / -1;
@@ -700,6 +711,15 @@ section {
 
 .cert-icon {
   font-size: 28px;
+  flex-shrink: 0;
+}
+
+.cert-icon--svg {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
