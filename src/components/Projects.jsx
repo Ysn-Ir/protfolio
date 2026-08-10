@@ -1,208 +1,88 @@
-/* ─── Project badge SVG icons ─── */
+import { useState } from "react";
+import { projects, categories } from "../data/projects";
 
-/* 02 – E-Commerce: shopping cart */
-const CartIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-    </svg>
+const GH = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+  </svg>
 );
 
-/* 03 – Trading: candlestick chart */
-const TradingIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-        <polyline points="16 7 22 7 22 13" />
-    </svg>
-);
-
-/* 04 – Compiler: binary / CPU chip */
-const CompilerIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <rect x="9" y="9" width="6" height="6" rx="1" />
-        <path d="M3 9h2m0 6H3m4-9V4m6 2V4m6 2v-2m-2 7h2m0 6h-2M15 21v-2M9 21v-2M3 15h2M4 6h2" />
-        <path d="M6 6h12v12H6z" rx="2" />
-    </svg>
-);
-
-/* 05 – Audio FFT: waveform */
-const AudioIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <path d="M2 12h2M6 8v8M10 4v16M14 6v12M18 8v8M22 12h-2" />
-    </svg>
-);
-
-/* 06 – OpenGL: triangle / 3D cube face */
-const OpenGLIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <path d="M12 3L21 18H3L12 3z" />
-        <circle cx="12" cy="13" r="2.5" fill="currentColor" opacity="0.4" stroke="none" />
-    </svg>
-);
-
-/* 07 – ML From Scratch: neural net / nodes */
-const MLIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <circle cx="4" cy="8" r="2" /><circle cx="4" cy="16" r="2" />
-        <circle cx="12" cy="5" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="12" cy="19" r="2" />
-        <circle cx="20" cy="9" r="2" /><circle cx="20" cy="15" r="2" />
-        <line x1="6" y1="8" x2="10" y2="5" /><line x1="6" y1="8" x2="10" y2="12" />
-        <line x1="6" y1="16" x2="10" y2="12" /><line x1="6" y1="16" x2="10" y2="19" />
-        <line x1="14" y1="5" x2="18" y2="9" /><line x1="14" y1="12" x2="18" y2="9" />
-        <line x1="14" y1="12" x2="18" y2="15" /><line x1="14" y1="19" x2="18" y2="15" />
-    </svg>
-);
-
-/* 08 – Bike Share: bicycle */
-const BikeIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-        <circle cx="5.5" cy="17.5" r="3.5" />
-        <circle cx="18.5" cy="17.5" r="3.5" />
-        <path d="M15 6h-3l-3 8h7l-2-8" />
-        <path d="M5.5 17.5l5-8.5 3 8.5" />
-        <path d="M12 6H9" />
-    </svg>
-);
+function Card({ p }) {
+  return (
+    <div className="proj-card">
+      <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+        {p.badge && <span className="proj-badge">{p.badge}</span>}
+        {p.featured && !p.badge && <span className="proj-badge">Featured</span>}
+        {p.paper && <span className="proj-badge">Published</span>}
+      </div>
+      <div className="proj-title">{p.title}</div>
+      <p className="proj-desc">{p.description}</p>
+      <div className="tag-row">
+        {p.tech.slice(0, 5).map(t => <span key={t} className="tag">{t}</span>)}
+        {p.tech.length > 5 && <span className="tag">+{p.tech.length - 5}</span>}
+      </div>
+      <div className="proj-footer">
+        <a href={p.github} target="_blank" rel="noreferrer" className="proj-link"><GH /> GitHub</a>
+        <span className="proj-cat">{p.category}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function Projects() {
-    return (
-        <section id="projects">
-            <div className="section-label" data-num="02">Engineering Projects</div>
+  const [filter, setFilter] = useState("all");
+  const all = projects.filter(p => filter === "all" || p.category === filter);
+  const pro = projects.filter(p => p.category === "professional");
+  const featured = all.filter(p => p.featured && p.category !== "professional");
+  const rest = all.filter(p => !p.featured);
 
-            <div className="projects-grid">
+  return (
+    <section id="projects">
+      <div className="section">
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", marginBottom: "3rem", flexWrap: "wrap" }}>
+          <div>
+            <span className="sec-label">// 04 · Projects</span>
+            <h2 className="sec-title">Notable Projects</h2>
+          </div>
+          <div className="filter-row">
+            {categories.map(c => (
+              <button key={c.key} className={`filter-btn ${filter === c.key ? "active" : ""}`} onClick={() => setFilter(c.key)}>
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                {/* FEATURED: MedStral */}
-                <div className="project-card featured reveal">
-                    <div className="featured-left">
-                        <div className="project-num">FEATURED · 01</div>
-                        <div className="project-title">MedStral Suite</div>
-                        <div className="project-tech">Python · Mistral-7B · XAI · Audio Processing · Computer Vision</div>
-                        <div className="project-desc">
-                            A full medical AI ecosystem integrating Web, ML, and signal processing — three interconnected diagnostic tools powered by a fine-tuned LLM.
-                        </div>
-                        <ul className="project-features">
-                            <li>Agentic RAG chatbot fine-tuned on Mistral-7B orchestrating medical diagnosis tools via Web interface</li>
-                            <li>ChestXpert XAI — CNN-based chest pathology detection with Explainable AI heatmaps (Grad-CAM)</li>
-                            <li>COVID Voice Detect — Full audio pipeline using MFCCs for voice-based COVID-19 screening</li>
-                        </ul>
-                    </div>
-                    <div className="featured-right">
-                        <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "11px", color: "var(--muted)", lineHeight: "2" }}>
-                            <div style={{ color: "var(--accent)", marginBottom: "16px", fontSize: "10px", letterSpacing: "0.2em" }}>TECH BREAKDOWN</div>
-                            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "8px" }}>
-                                <span>LLM Fine-tuning</span><span style={{ color: "var(--accent3)" }}>Mistral-7B</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "8px" }}>
-                                <span>Vision Model</span><span style={{ color: "var(--accent3)" }}>CNN + Grad-CAM</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "8px" }}>
-                                <span>Signal Processing</span><span style={{ color: "var(--accent3)" }}>MFCC Pipeline</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "8px" }}>
-                                <span>RAG Architecture</span><span style={{ color: "var(--accent3)" }}>Agentic</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <span>XAI Module</span><span style={{ color: "var(--accent3)" }}>Heatmaps</span>
-                            </div>
-                            <div style={{ marginTop: "28px" }}>
-                                <a href="https://github.com/Ysn-Ir" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "10px", padding: "10px 20px" }}>View on GitHub →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><CartIcon /></div>
-                    <div className="project-num">02</div>
-                    <div className="project-title">Intelligent E-Commerce Platform</div>
-                    <div className="project-tech">Spring Boot · React.js · Python ML · Amazon Dataset</div>
-                    <div className="project-desc">Next-gen e-commerce platform with an AI recommendation engine trained on the Amazon dataset.</div>
-                    <ul className="project-features">
-                        <li>Content-Based Filtering algorithm predicting user preferences in real-time</li>
-                        <li>Secure Spring Boot microservices backend + React/Redux frontend</li>
-                        <li>Optimized large product inventory management with personalized suggestions</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><TradingIcon /></div>
-                    <div className="project-num">03</div>
-                    <div className="project-title">Trading Platform</div>
-                    <div className="project-tech">Spring Boot · Angular · Microservices · Forecasting</div>
-                    <div className="project-desc">Real-time trading backend with price forecasting and live Angular dashboard.</div>
-                    <ul className="project-features">
-                        <li>Spring Boot microservices architecture for scalability</li>
-                        <li>ML-based market forecasting integrated into the backend</li>
-                        <li>Real-time Angular dashboard with live data streaming</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><CompilerIcon /></div>
-                    <div className="project-num">04</div>
-                    <div className="project-title">C++ → x64 Compiler</div>
-                    <div className="project-tech">C++ · NASM · Assembly x64 · Compiler Theory</div>
-                    <div className="project-desc">A complete compiler pipeline translating C++ source code to executable x64 Assembly.</div>
-                    <ul className="project-features">
-                        <li>Full Lexer/Parser pipeline with AST generation</li>
-                        <li>Code generation targeting NASM x64 executable output</li>
-                        <li>Deep hardware optimization and low-level memory awareness</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><AudioIcon /></div>
-                    <div className="project-num">05</div>
-                    <div className="project-title">Audio FFT Analyzer (Shazam-like)</div>
-                    <div className="project-tech">C++ · FFT · Spectrograms · Signal Processing</div>
-                    <div className="project-desc">C++ application implementing Fast Fourier Transform for audio frequency visualization and fingerprinting.</div>
-                    <ul className="project-features">
-                        <li>Real-time FFT implementation from scratch in C++</li>
-                        <li>Spectrogram generation and audio frequency manipulation</li>
-                        <li>Shazam-like audio fingerprinting logic</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><OpenGLIcon /></div>
-                    <div className="project-num">06</div>
-                    <div className="project-title">OpenGL Physics Engine</div>
-                    <div className="project-tech">C++ · OpenGL · Physics · Particle Systems</div>
-                    <div className="project-desc">Graphics engine built from scratch handling physics simulation and particle rendering.</div>
-                    <ul className="project-features">
-                        <li>Gravity, collision detection, and rigid body physics</li>
-                        <li>Particle system with real-time OpenGL rendering</li>
-                        <li>Full custom math and vector library</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><MLIcon /></div>
-                    <div className="project-num">07</div>
-                    <div className="project-title">ML Algorithms From Scratch</div>
-                    <div className="project-tech">Python · NumPy · Applied Mathematics</div>
-                    <div className="project-desc">Pure reimplementation of core ML algorithms without libraries — deep mathematical understanding.</div>
-                    <ul className="project-features">
-                        <li>Logistic/Linear Regression, Neural Networks with manual Backpropagation</li>
-                        <li>SVM, K-Means implemented with NumPy only</li>
-                        <li>Benchmarked against Scikit-learn — comparable performance</li>
-                    </ul>
-                </div>
-
-                <div className="project-card reveal">
-                    <div className="project-badge project-badge--svg"><BikeIcon /></div>
-                    <div className="project-num">08</div>
-                    <div className="project-title">DC Bike Share Demand Prediction</div>
-                    <div className="project-tech">XGBoost · LightGBM · Time Series · IEEE Hackathon</div>
-                    <div className="project-desc">Advanced Data Science project for the Xtreem Hackathon (IEEE) — time series demand forecasting.</div>
-                    <ul className="project-features">
-                        <li>Time Series analysis with feature engineering</li>
-                        <li>XGBoost and LightGBM ensemble for demand prediction</li>
-                        <li>IEEE Xtreem Hackathon competitive submission</li>
-                    </ul>
-                </div>
-
+        {/* Professional Products */}
+        {(filter === "all" || filter === "professional") && (
+          <>
+            <div className="subsection-label">Professional Products</div>
+            <div className="projects-grid-featured" style={{ marginBottom: "2rem" }}>
+              {pro.map(p => <Card key={p.title} p={p} />)}
             </div>
-        </section>
-    );
+          </>
+        )}
+
+        {/* Featured */}
+        {featured.length > 0 && (
+          <>
+            <div className="subsection-label">Featured</div>
+            <div className="projects-grid-featured" style={{ marginBottom: "2rem" }}>
+              {featured.map(p => <Card key={p.title} p={p} />)}
+            </div>
+          </>
+        )}
+
+        {/* Rest */}
+        {rest.length > 0 && (
+          <>
+            <div className="subsection-label">All Projects</div>
+            <div className="projects-grid">
+              {rest.map(p => <Card key={p.title} p={p} />)}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
 }

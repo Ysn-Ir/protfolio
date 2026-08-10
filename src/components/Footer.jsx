@@ -1,8 +1,10 @@
 export default function Footer() {
-    return (
-        <footer>
-            <div className="footer-copy">© 2026 YASSINE OUALI · Built with code, math &amp; ambition</div>
-            <div className="footer-copy">github.com/Ysn-Ir · oualiy419@gmail.com</div>
-        </footer>
-    );
+  return (
+    <footer className="footer">
+      Yassine Ouali · ENSA Fès · 2026 ·{" "}
+      <a href="https://github.com/Ysn-Ir" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+        github.com/Ysn-Ir
+      </a>
+    </footer>
+  );
 }
