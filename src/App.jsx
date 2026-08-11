@@ -1,4 +1,5 @@
 import "./index.css";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import CustomCursor from "./components/CustomCursor";
 import ParticleBg from "./components/MatrixBg";
 import Navbar from "./components/Navbar";
@@ -41,6 +42,8 @@ export default function App() {
         <Contact />
         <Footer />
       </div>
+      
+      <SpeedInsights />
     </>
   );
 }
