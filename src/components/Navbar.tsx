@@ -1,15 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Navbar.css'
+import { Search } from 'lucide-react'
+import CommandPalette from './CommandPalette'
 
-const NAV_LINKS = [
-  { label: 'Home',        href: '#hero-section', num: '01' },
-  { label: 'About',       href: '#about',        num: '02' },
-  { label: 'Skills',      href: '#skills',       num: '03' },
-  { label: 'Projects',    href: '#work',         num: '04' },
-  { label: 'Experiences', href: '#experiences',  num: '05' },
-  { label: 'Contact Us',  href: '#contact',      num: '06' },
-  { label: 'Q&A',         href: '#faq',          num: '07' },
+interface NavLink {
+  label: string
+  href: string
+  num: string
+}
+
+const NAV_LINKS: NavLink[] = [
+  { label: 'Home',                  href: '/#hero-section',     num: '01' },
+  { label: 'About & Credentials',   href: '/#about',            num: '02' },
+  { label: 'Skills & Capabilities', href: '/#skills',           num: '03' },
+  { label: 'Interactive Lab',       href: '/#interactive-lab',  num: '04' },
+  { label: 'Featured Projects',     href: '/#projects',         num: '05' },
+  { label: 'Career Experiences',    href: '/#experiences',      num: '06' },
+  { label: 'GitHub Activity',       href: '/#github-activity',  num: '07' },
+  { label: 'Research Publications', href: '/#publications',     num: '08' },
+  { label: 'Technical Q&A',         href: '/#faq',              num: '09' },
+  { label: 'Get in Touch (PFE)',    href: '/contact',           num: '10' },
 ]
 
 const ArrowIcon = () => (
@@ -45,8 +56,8 @@ const linkItemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: 0.3 + i * 0.08,
-      duration: 0.8,
+      delay: 0.25 + i * 0.07,
+      duration: 0.75,
       ease: [0.33, 1, 0.68, 1] as const,
     },
   }),
@@ -60,15 +71,25 @@ const linkItemVariants = {
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [paletteOpen, setPaletteOpen] = useState(false)
 
-  /* Scroll shadow */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Lock body/document scroll while menu is open & control Lenis */
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
@@ -93,7 +114,6 @@ const Navbar: React.FC = () => {
     }
   }, [menuOpen])
 
-  /* Close on Escape */
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') setMenuOpen(false)
   }, [])
@@ -107,56 +127,79 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* ── Fixed navbar bar ── */}
+      <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} />
       <nav
         className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${
-          scrolled ? 'bg-white/90 backdrop-blur-md' : 'bg-transparent'
+          scrolled ? 'bg-white/92 backdrop-blur-md shadow-xs' : 'bg-transparent'
         }`}
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="w-full max-w-[1080px] px-6 h-20 flex items-center justify-between">
+        <div className="w-full max-w-[1120px] px-6 h-20 flex items-center justify-between">
           
-          {/* Logo */}
-          <a href="/" className="z-[100] flex items-center gap-3 relative group" aria-label="Go to homepage">
-            <motion.img
-              src="/my-logo.png"
-              alt="Yassine logo"
-              className="w-10 h-auto object-contain"
-              whileHover={{ scale: 0.95, rotate: -5 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-            />
+          <a href="/" className="z-[100] flex items-center gap-3 relative group no-underline" aria-label="Go to homepage">
+            <div className="flex items-center gap-2.5">
+              <span className="font-mono text-base font-bold tracking-tight text-neutral-900 border border-neutral-900/25 px-2.5 py-1 rounded-lg bg-neutral-100 group-hover:bg-neutral-900 group-hover:text-white transition-all">
+                YSN
+              </span>
+              <div className="flex flex-col">
+                <span className="font-['Space_Grotesk_Variable',sans-serif] text-sm font-bold text-neutral-900 tracking-tight leading-tight">
+                  Yassine Ouali
+                </span>
+                <span className="text-[11px] text-neutral-500 hidden sm:block">
+                  AI &amp; Software Engineer
+                </span>
+              </div>
+            </div>
           </a>
 
-          {/* Hamburger ↔ Close trigger */}
-          <button
-            className="z-[100] relative flex items-center justify-center w-12 h-12 rounded-full hover:bg-neutral-100 transition-colors group focus:outline-none"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <div className="relative w-6 h-[14px]">
-              <motion.span
-                className="absolute left-0 w-full h-[1px] bg-neutral-900 origin-center rounded-sm"
-                animate={menuOpen ? { top: '6px', rotate: 45 } : { top: '0px', rotate: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-              <motion.span
-                className="absolute left-0 w-4 h-[1px] bg-neutral-900 rounded-sm"
-                animate={menuOpen ? { top: '6px', opacity: 0, scaleX: 0 } : { top: '6px', opacity: 1, scaleX: 1 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-              <motion.span
-                className="absolute left-0 w-full h-[1px] bg-neutral-900 origin-center rounded-sm"
-                animate={menuOpen ? { top: '6px', rotate: -45 } : { top: '12px', rotate: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-            </div>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setPaletteOpen(true)}
+              className="hidden md:inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-full border border-neutral-900/15 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-all cursor-pointer"
+              title="Press ⌘K or Ctrl+K to search"
+            >
+              <Search size={12} />
+              <span>Search</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-neutral-200/60 text-[10px] text-neutral-500 font-semibold">⌘K</kbd>
+            </button>
+
+            <a
+              href="#contact"
+              className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border border-neutral-900/15 text-neutral-800 hover:bg-neutral-900 hover:text-white transition-all no-underline"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+              Seeking PFE 2027
+            </a>
+
+            <button
+              className="z-[100] relative flex items-center justify-center w-12 h-12 rounded-full hover:bg-neutral-100 transition-colors group focus:outline-none cursor-pointer"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              <div className="relative w-6 h-[14px]">
+                <motion.span
+                  className="absolute left-0 w-full h-[1.5px] bg-neutral-900 origin-center rounded-sm"
+                  animate={menuOpen ? { top: '6px', rotate: 45 } : { top: '0px', rotate: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+                <motion.span
+                  className="absolute left-0 w-4 h-[1.5px] bg-neutral-900 rounded-sm"
+                  animate={menuOpen ? { top: '6px', opacity: 0, scaleX: 0 } : { top: '6px', opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+                <motion.span
+                  className="absolute left-0 w-full h-[1.5px] bg-neutral-900 origin-center rounded-sm"
+                  animate={menuOpen ? { top: '6px', rotate: -45 } : { top: '12px', rotate: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* ── Overlay Menu ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -165,23 +208,26 @@ const Navbar: React.FC = () => {
             animate="visible"
             exit="exit"
             data-lenis-prevent
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl text-neutral-900 flex justify-center overflow-y-auto overflow-x-hidden"
+            className="fixed inset-0 z-40 bg-white/98 backdrop-blur-2xl text-neutral-900 flex justify-center overflow-y-auto overflow-x-hidden"
           >
-            <div className="w-full max-w-[1080px] px-6 pt-32 pb-16 flex flex-col justify-between min-h-screen">
+            <div className="w-full max-w-[1080px] px-6 pt-28 pb-16 flex flex-col justify-between min-h-screen">
               
               <div className="w-full flex-1 flex flex-col justify-center">
-                {/* Section title (Optional) */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
+                <motion.div 
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className="text-xs uppercase tracking-[0.2em] font-semibold text-neutral-400 mb-8"
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  className="flex items-center justify-between border-b border-neutral-200/70 pb-4 mb-6"
                 >
-                  Menu
-                </motion.p>
+                  <span className="text-xs uppercase tracking-[0.25em] font-semibold text-neutral-400">
+                    Navigation Menu
+                  </span>
+                  <span className="text-xs font-mono text-[#059669]">
+                    YSNIR.XYZ · ENSA FÈS
+                  </span>
+                </motion.div>
                 
-                {/* Links list */}
-                <ul className="flex flex-col gap-6 w-full max-w-4xl mx-auto" role="list">
+                <ul className="flex flex-col gap-4 w-full max-w-4xl mx-auto" role="list">
                   {NAV_LINKS.map((link, i) => (
                     <motion.li
                       key={link.label}
@@ -190,25 +236,22 @@ const Navbar: React.FC = () => {
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      className="group flex border-b border-neutral-200/50 pb-4"
+                      className="group flex border-b border-neutral-200/50 pb-3"
                     >
                       <a
                         href={link.href}
                         onClick={closeMenu}
-                        className="flex items-center text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-600 relative overflow-hidden w-full transition-colors duration-500 hover:text-black"
+                        className="flex items-center text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-600 relative overflow-hidden w-full transition-colors duration-300 hover:text-black no-underline"
                         tabIndex={menuOpen ? 0 : -1}
                       >
-                        {/* Number Indicator */}
-                        <span className="text-xs md:text-sm font-light text-neutral-400 w-12 md:w-20 transition-colors duration-500 group-hover:text-neutral-600">
+                        <span className="text-xs md:text-sm font-mono text-neutral-400 w-12 md:w-16 transition-colors duration-300 group-hover:text-black">
                           {link.num}
                         </span>
                         
-                        {/* Link Text */}
-                        <span className="relative flex items-center pr-8 w-full transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:translate-x-3">
+                        <span className="relative flex items-center pr-8 w-full transition-transform duration-300 group-hover:translate-x-2">
                           {link.label}
                           
-                          {/* Arrow */}
-                          <span className="inline-flex items-center justify-center ml-auto opacity-0 -translate-x-4 transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100 group-hover:translate-x-0">
+                          <span className="inline-flex items-center justify-center ml-auto opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                             <ArrowIcon />
                           </span>
                         </span>
@@ -218,7 +261,10 @@ const Navbar: React.FC = () => {
                 </ul>
               </div>
 
-      
+              <div className="pt-8 border-t border-neutral-200/60 flex flex-wrap items-center justify-between gap-4 text-xs text-neutral-500 font-mono">
+                <span>Location: Fès, Morocco · Availability: 6-Month PFE 2027</span>
+                <span>Email: oualiy419@gmail.com</span>
+              </div>
             </div>
           </motion.div>
         )}

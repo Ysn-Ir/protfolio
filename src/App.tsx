@@ -9,18 +9,17 @@ import Hero from './components/Hero'
 import Discover from './components/Discover'
 import About from './components/About'
 import Services from './components/Services'
+import InteractiveLab from './components/InteractiveLab'
 import Work from './components/Work'
 import Experiences from './components/Experiences'
 import GitHubContributionSection from './components/github/GitHubContributionSection'
 import FAQs from './components/FAQs'
-import Testimonials from './components/Testimonials'
+import Publications from './components/Publications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ContactPage from './components/ContactPage'
 import NotFoundPage from './components/NotFoundPage'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ─────────────────────────────────────────────────────────────────────────────
 const HomePage: React.FC<{ isLoading: boolean }> = ({ isLoading }) => (
   <div
     style={{
@@ -35,30 +34,22 @@ const HomePage: React.FC<{ isLoading: boolean }> = ({ isLoading }) => (
       <Discover />
       <About />
       <Services />
+      <InteractiveLab />
       <Work />
       <Experiences />
-      <GitHubContributionSection />
+      <GitHubContributionSection username="Ysn-Ir" />
+      <Publications />
       <FAQs />
-      <Testimonials />
       <Contact />
       <Footer />
     </main>
   </div>
 )
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AppRoutes — handles AnimatePresence for smooth page transitions
-// Must be inside <BrowserRouter> so useLocation works.
-// ─────────────────────────────────────────────────────────────────────────────
 const AppRoutes: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
   const location = useLocation()
 
   return (
-    /*
-     * AnimatePresence with mode="wait" ensures the outgoing page finishes its
-     * exit animation before the new page enters — same behaviour as the
-     * reference website's staggered fade-in transition.
-     */
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage isLoading={isLoading} />} />
@@ -69,15 +60,11 @@ const AppRoutes: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// App — root component
-// ─────────────────────────────────────────────────────────────────────────────
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   return (
     <BrowserRouter>
-      {/* Loading screen sits outside routes so it always shows first */}
       <AnimatePresence mode="wait">
         {isLoading && (
           <LoadingScreen

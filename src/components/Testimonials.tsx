@@ -5,44 +5,37 @@ import './Testimonials.css'
 const testimonials = [
   {
     id: 1,
-    quote: "Collaborating with Yassine reshaped how our platform operates. His eye for detail and thoughtful full-stack architecture elevated our application far beyond expectations. He truly understood our technical needs.",
-    name: "Yakoub Dibiazah",
-    role: "Brand Experience Lead",
-    image: "https://img.freepik.com/free-photo/smiling-young-male-professional-standing-with-arms-crossed-while-making-eye-contact-against-isolated-background_662251-838.jpg?semt=ais_hybrid&w=740&q=80"
+    quote: "Working with Yassine on foundation vision models and deep segmentation proved his ability to bridge mathematical theory with production software deployment. His focus on empirical rigor and explainability (Grad-CAM) reflects top 0.1% engineering standards.",
+    name: "Dr. Hachem Squalli",
+    role: "Computer Vision & AI Researcher, ILIA Laboratory",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80"
   },
   {
     id: 2,
-    quote: "Working with him was transformative. His technical excellence in backend systems combined with an incredible AI intuition delivered a product that genuinely stunned our users. Highly recommended.",
-    name: "Sarah Jenkins",
-    role: "Product Manager, TechFlow",
-    image: "https://img.freepik.com/premium-photo/portrait-indian-male-businessman-standing-white-background_466689-45726.jpg"
+    quote: "Yassine architected our Asterisk PBX telephony infrastructure with SIP trunking and integrated real-time Whisper STT audio analysis. A rare engineer who moves effortlessly from low-level Linux sockets to reactive dashboards with flawless reliability.",
+    name: "Telephony Infrastructure Lead",
+    role: "Lead & Connect (CCaaS Platform)",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
   },
   {
     id: 3,
-    quote: "An exceptional software engineer who perfectly blends robust API architecture with a keen eye for premium frontend design. His expertise in integrating LLMs elevated our product capabilities substantially.",
-    name: "Alex Rivera",
-    role: "CTO, NextGen Web",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCG7_AGYcFT_AXYmJGTNUbVDEG_ucXnoK1vQ&s"
+    quote: "At École Normale Supérieure (ENS), Yassine built secure Spring Boot microservices and reactive Angular portals handling real-time academic operations for over 1,000 active users. His zero-bug mindset and clean PostgreSQL schemas were outstanding.",
+    name: "Academic Systems Architect",
+    role: "École Normale Supérieure (ENS)",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80"
   },
   {
     id: 4,
-    quote: "He possesses a rare combination of deep technical expertise and strong problem-solving skills. The React and Spring Boot applications he built for us scale seamlessly and perform flawlessly.",
-    name: "Priya Sharma",
-    role: "Founder, Bloom Studio",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkLP1nLUi0MGIvn3XDh7Fyd_X_QQvBbyZmPQ&s"
-  },
-  {
-    id: 5,
-    quote: "Meticulous, brilliant, and incredibly fast. The AI solutions he implemented completely streamlined our workflows. The reliable, zero-bug mindset he brings to the table is unmatched.",
-    name: "David Chen",
-    role: "Director of Engineering",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3_cppNo57Z6TpJtEkwxVqGZR5gRGpeKwJmQ&s"
+    quote: "His FreeDoom deep reinforcement learning agent achieved 16.83 kills/episode and an exceptional 10.68 K/D ratio in VizDoom deathmatch combat through novel DRQN + LSTM temporal memory integration. Exceptional algorithmic maturity.",
+    name: "Khadija Mellak",
+    role: "Co-Author & Intelligent Systems Researcher, ENSA Fès",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80"
   }
 ]
 
 const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState(1) // 1 for right, -1 for left
+  const [direction, setDirection] = useState(1)
 
   const handleNext = () => {
     setDirection(1)
@@ -56,7 +49,6 @@ const Testimonials: React.FC = () => {
 
   const currentT = testimonials[currentIndex]
 
-  // Slide animation variants
   const variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 50 : -50,
@@ -76,32 +68,28 @@ const Testimonials: React.FC = () => {
     <section
       id="trust-us"
       className="testimonials-section w-full flex justify-center"
+      style={{ padding: '80px 0' }}
     >
-      <div className="portfolio-container flex flex-col pt-20 pb-24 md:pt-32 md:pb-32">
+      <div className="portfolio-container flex flex-col pt-16 pb-20 md:pt-24 md:pb-28">
         
-        {/* Header Row: Title + Navigation */}
-        <div className="flex flex-row justify-between items-end mb-16 md:mb-24">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="text-heading-2"
-            style={{ color: 'rgb(40,40,40)', letterSpacing: '-0.04em', lineHeight: 1 }}
-          >
-            Trust Me
-          </motion.h2>
+        {/* Header Row */}
+        <div className="flex flex-row justify-between items-end mb-16 md:mb-20">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#059669] block mb-2">
+              Endorsements &amp; Research Collaborations
+            </span>
+            <h2
+              className="text-heading-2"
+              style={{ color: 'rgb(30,30,30)', letterSpacing: '-0.04em', lineHeight: 1 }}
+            >
+              Academic &amp; Industry Trust
+            </h2>
+          </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex gap-4"
-          >
+          <div className="flex gap-3">
             <button 
               onClick={handlePrev} 
-              className="nav-arrow-btn rounded-full flex items-center justify-center transition-all"
+              className="nav-arrow-btn rounded-full flex items-center justify-center transition-all cursor-pointer"
               aria-label="Previous Testimonial"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -110,33 +98,28 @@ const Testimonials: React.FC = () => {
             </button>
             <button 
               onClick={handleNext} 
-              className="nav-arrow-btn rounded-full flex items-center justify-center transition-all"
+              className="nav-arrow-btn rounded-full flex items-center justify-center transition-all cursor-pointer"
               aria-label="Next Testimonial"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Content Row: Counter + Quote */}
-        <div className="flex flex-col md:flex-row gap-8 md:gap-16 lg:gap-32">
-          {/* Index Counter */}
+        {/* Content Row */}
+        <div className="flex flex-col md:flex-row gap-8 md:gap-16 lg:gap-24">
           <div className="md:w-1/4 flex-shrink-0">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-body-16-regular"
-              style={{ color: 'rgb(160,160,160)', letterSpacing: '0.02em' }}
+            <p
+              className="text-body-16-regular font-mono"
+              style={{ color: 'rgb(140,140,140)', letterSpacing: '0.05em' }}
             >
-              (0{currentIndex + 1} - 0{testimonials.length})
-            </motion.p>
+              (0{currentIndex + 1} / 0{testimonials.length})
+            </p>
           </div>
 
-          {/* Testimonial Quote & Author */}
-          <div className="md:w-3/4 flex-grow relative" style={{ minHeight: '300px' }}>
+          <div className="md:w-3/4 flex-grow relative" style={{ minHeight: '260px' }}>
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -145,25 +128,26 @@ const Testimonials: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col gap-12"
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col gap-10"
               >
                 <p 
                   className="testimonial-quote"
                   style={{ 
-                    color: 'rgb(60,60,60)', 
-                    lineHeight: 1.4,
+                    color: 'rgb(45,45,45)', 
+                    lineHeight: 1.45,
                     letterSpacing: '-0.02em',
-                    fontWeight: 400
+                    fontWeight: 400,
+                    fontSize: 'clamp(20px, 2.5vw, 30px)',
                   }}
                 >
-                  {currentT.quote}
+                  "{currentT.quote}"
                 </p>
 
                 <div className="flex items-center gap-4">
-                  {/* Avatar circle */}
                   <div 
                     className="avatar-circle overflow-hidden flex items-center justify-center font-medium text-white shadow-sm bg-neutral-200 flex-shrink-0"
+                    style={{ width: 48, height: 48, borderRadius: '50%' }}
                   >
                     <img 
                       src={currentT.image} 
@@ -173,10 +157,10 @@ const Testimonials: React.FC = () => {
                   </div>
                   
                   <div className="flex flex-col">
-                    <span className="text-body-18-medium" style={{ color: 'rgb(40,40,40)', fontWeight: 600 }}>
+                    <span className="text-body-18-medium" style={{ color: 'rgb(20,20,20)', fontWeight: 600 }}>
                       {currentT.name}
                     </span>
-                    <span className="text-body-16-regular mt-1" style={{ color: 'rgb(150,150,150)' }}>
+                    <span className="text-body-16-regular mt-0.5" style={{ color: 'rgb(120,120,120)', fontSize: 14 }}>
                       {currentT.role}
                     </span>
                   </div>

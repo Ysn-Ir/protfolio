@@ -298,9 +298,9 @@ const ContactPage: React.FC = () => {
               <p style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', fontFamily: 'Space Grotesk Variable, Space Grotesk, sans-serif', marginBottom: 4 }}>
                 Contact Details
               </p>
-              <ContactCard icon={<Mail size={18} />} label="Email us" value="yassinbenkacem12@gmail.com" href="mailto:yassinbenkacem12@gmail.com" />
-              <ContactCard icon={<Phone size={18} />} label="Call us" value="+212 6 10 83 30 77" href="tel:+212610833077" />
-              <ContactCard icon={<MapPin size={18} />} label="Location" value="Fes, Morocco" />
+              <ContactCard icon={<Mail size={18} />} label="Email us" value="oualiy419@gmail.com" href="mailto:oualiy419@gmail.com" />
+              <ContactCard icon={<Phone size={18} />} label="Call us" value="+212 609 408 356" href="tel:+212609408356" />
+              <ContactCard icon={<MapPin size={18} />} label="Location" value="Fès, Morocco (ENSA Fès)" />
             </motion.div>
 
             {/* ── Right — contact form ─────────────────────────────────────── */}
